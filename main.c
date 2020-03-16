@@ -1,15 +1,12 @@
 /*
  * File: Main.c
- * Author: jy1189 - and many more
+ * Author: Paul Zwart
  *
- * Created on April 23, 2015, 11:05 AM
+ * Created on March 15, 2020
  */
 
 //*****************************************************************************
 #include "IWPUtilities.h"
-#include "I2C.h"
-#include "FONAUtilities.h"
-#include "Pin_Manager.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -19,7 +16,7 @@
 
 
 // ****************************************************************************
-// *** PIC24F32KA302 Configuration Bit Settings *******************************
+// *** PIC24EP256GP202 Configuration Bit Settings *******************************
 // ****************************************************************************
 // FBS
 #pragma config BWRP = OFF // Boot Segment Write Protect (Disabled)

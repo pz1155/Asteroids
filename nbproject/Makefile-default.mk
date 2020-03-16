@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=IWPUtilities.c main.c
+SOURCEFILES_QUOTED_IF_SPACED=IWPUtilities.c main.c asteroids_main.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/IWPUtilities.o ${OBJECTDIR}/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/IWPUtilities.o.d ${OBJECTDIR}/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/IWPUtilities.o ${OBJECTDIR}/main.o ${OBJECTDIR}/asteroids_main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/IWPUtilities.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/asteroids_main.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/IWPUtilities.o ${OBJECTDIR}/main.o
+OBJECTFILES=${OBJECTDIR}/IWPUtilities.o ${OBJECTDIR}/main.o ${OBJECTDIR}/asteroids_main.o
 
 # Source Files
-SOURCEFILES=IWPUtilities.c main.c
+SOURCEFILES=IWPUtilities.c main.c asteroids_main.c
 
 
 CFLAGS=
@@ -108,6 +108,13 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/asteroids_main.o: asteroids_main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/asteroids_main.o.d 
+	@${RM} ${OBJECTDIR}/asteroids_main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  asteroids_main.c  -o ${OBJECTDIR}/asteroids_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/asteroids_main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/asteroids_main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/IWPUtilities.o: IWPUtilities.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -122,6 +129,13 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/asteroids_main.o: asteroids_main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/asteroids_main.o.d 
+	@${RM} ${OBJECTDIR}/asteroids_main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  asteroids_main.c  -o ${OBJECTDIR}/asteroids_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/asteroids_main.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/asteroids_main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
