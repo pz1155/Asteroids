@@ -6,6 +6,11 @@
  */
 
 
+
+// PIC24EP256GP202 Configuration Bit Settings
+
+// 'C' source line config statements
+
 // FICD
 #pragma config ICS = PGD1               // ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1)
 #pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
@@ -23,7 +28,7 @@
 #pragma config FWDTEN = ON              // Watchdog Timer Enable bit (Watchdog timer always enabled)
 
 // FOSC
-#pragma config POSCMD = XT              // Primary Oscillator Mode Select bits (XT Crystal Oscillator Mode)
+#pragma config POSCMD = EC              // Primary Oscillator Mode Select bits (EC (External Clock) Mode)
 #pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
 #pragma config IOL1WAY = ON             // Peripheral pin select configuration (Allow only one reconfiguration)
 #pragma config FCKSM = CSDCMD           // Clock Switching Mode bits (Both Clock switching and Fail-safe Clock Monitor are disabled)
@@ -42,5 +47,160 @@
 #include <xc.h>
 
 int main(void) {
+    int i;
+    
+    
+    config();
+    
+    /*
+    0x0000 = 0V 
+    0x1000 = 0.714V
+    0x2000 = 0.054V
+    0x3000 = -0.286V
+     */
+    
+    while(1) {
+        for (i = 0; i < 6; i++) {
+            TMR1 = 0;
+            PORTB = 0x3000;     
+            while (TMR1 < 47) {}
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 974) {
+            ClrWdt();
+            }
+        }
+        
+        for (i = 0; i < 6; i++) {
+            TMR1 = 0;
+            PORTB = 0x3000;     
+            while (TMR1 < 974) {}
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 47) {
+            ClrWdt();
+            }
+        }
+        
+        for (i = 0; i < 6; i++) {
+            TMR1 = 0;
+            PORTB = 0x3000;     
+            while (TMR1 < 47) {}
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 974) {
+            ClrWdt();
+            }
+        }
+        
+        for (i = 0; i < 131; i++) {
+            ClrWdt();
+
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 47) {}
+            TMR1 = 0;
+            PORTB = 0x3000;
+            while (TMR1 < 148) {}
+            TMR1 = 0;
+            PORTB = 0x0000;
+            while (TMR1 < 148) {}
+            TMR1 = 0;
+            PORTB = 0x2000;
+            while (TMR1 < 47) {}
+            TMR1 = 0;
+            PORTB = 0x2000;
+            while (TMR1 < 817) {
+            ClrWdt();
+            }
+            TMR1 = 0;
+            PORTB = 0x1000;
+            while (TMR1 < 817) {
+            ClrWdt();
+            }
+            
+            ClrWdt();
+
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 47) {}
+            TMR1 = 0;
+            PORTB = 0x3000;
+            while (TMR1 < 148) {}
+            TMR1 = 0;
+            PORTB = 0x0000;
+            while (TMR1 < 148) {}
+            TMR1 = 0;
+            PORTB = 0x2000;
+            while (TMR1 < 47) {}
+            TMR1 = 0;
+            PORTB = 0x1000;
+            while (TMR1 < 817) {
+            ClrWdt();
+            }
+            TMR1 = 0;
+            PORTB = 0x2000;
+            while (TMR1 < 817) {
+            ClrWdt();
+            }
+        }
+        
+        TMR1 = 0;
+        PORTB = 0x0000;     
+        while (TMR1 < 47) {}
+        TMR1 = 0;
+        PORTB = 0x3000;
+        while (TMR1 < 148) {}
+        TMR1 = 0;
+        PORTB = 0x0000;
+        while (TMR1 < 148) {}
+        TMR1 = 0;
+        PORTB = 0x2000;
+        while (TMR1 < 47) {}
+        TMR1 = 0;
+        PORTB = 0x2000;
+        while (TMR1 < 817) {
+        ClrWdt();
+        }
+        TMR1 = 0;
+        PORTB = 0x1000;
+        while (TMR1 < 817) {
+        ClrWdt();
+        }
+        /*asm {
+            CLR W1
+            DELAY:
+            ADD 1, W1
+            BRGT 
+                
+        }*/
+    }
+    
+    return 0;
+}
+
+
+int config(void) {
+    
+    ANSELB = 0; // All port B pins are digital.
+    
+    TRISA = 0xFFFF; // Make PORTA all inputs
+    TRISB = 0xFFFF; // Make PORTA all inputs
+    
+    TRISBbits.TRISB13 = 0; //Make RB11 and output
+    TRISBbits.TRISB12 = 0; //Make RB12 and output
+    
+    // Configure PLL prescaler, PLL postscaler, PLL divisor; FCY = 32MHz (31.25nsec/i)
+    PLLFBD = 46;            // M=48
+    CLKDIVbits.PLLPOST = 0; // N2=2
+    CLKDIVbits.PLLPRE = 1;  // N1=3    
+    
+    // Timer control
+    T1CONbits.TCS = 0; // Set to timer mode
+    T1CONbits.TGATE = 0; // Turn off Gated timer mode
+    T1CONbits.TCKPS = 0b00; // Prescalar to 1:1 
+    T1CONbits.TON = 1; // Enable the timer (timer 1 is used for the water sensor and checking for network)
+    
+    
     return 0;
 }
