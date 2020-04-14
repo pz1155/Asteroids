@@ -16,7 +16,8 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../support/dsPIC33C/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../support/dsPIC33F/gld \
-  build/default/production/asteroids_main.o \
+  build/default/production/main.o \
+  build/default/production/mainAsm.o \
   --local-stack \
   --defsym=__MPLAB_BUILD=1 \
   -Tp24EP256GP202.gld.00 \
@@ -75,9 +76,9 @@ xc16-ld 1.34 (A)
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x100           0x180  (384)
-.text                        0x300               0x1fe           0x2fd  (765)
+.text                        0x300                0x34            0x4e  (78)
 
-                 Total "program" memory used (bytes):          0x47d  (1149) <1%
+                 Total "program" memory used (bytes):          0x1ce  (462) <1%
 
 
 "data" Memory  [Origin = 0x1000, Length = 0x8000]
@@ -102,11 +103,11 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000248                  __data_init_extended
                   0x000248                  __data_init
+                  0x000248                  __data_init_extended
                   0x0002fa                  __DefaultInterrupt
-                  0x000300                  _main
-                  0x0004c4                  _config
+                  0x000300                  _asmMain
+                  0x00032a                  _main
                   0x02affa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
@@ -117,8 +118,8 @@ External Symbols in Program Memory (by name):
                   0x000248                  __data_init_extended
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0004c4                  _config
-                  0x000300                  _main
+                  0x000300                  _asmMain
+                  0x00032a                  _main
 
 Memory Configuration
 
@@ -141,7 +142,8 @@ FUID3            0x800ffe           0x000002
 
 Linker script and memory map
 
-LOAD build/default/production/asteroids_main.o
+LOAD build/default/production/main.o
+LOAD build/default/production/mainAsm.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p24EP256GP202
 LOAD c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\libfx-elf.a
@@ -210,7 +212,7 @@ __FOSCSEL
 
 __FGS             0x02affa          0x2
  *(__FGS.sec*)
- __FGS.sec        0x02affa          0x2 /CW/_FGSè¤Ð
+ __FGS.sec        0x02affa          0x2 /CW/_FGSÐƒ­
                   0x02affa                  __FGS.sec
 
 __FUID0
@@ -228,26 +230,25 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x6f9
+.debug_info       0x000000        0x1b9
  *(.debug_info)
- .debug_info      0x000000        0x6f9 build/default/production/asteroids_main.o
+ .debug_info      0x000000        0x139 build/default/production/main.o
+ .debug_info      0x000139         0x80 build/default/production/mainAsm.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x165
+.debug_abbrev     0x000000         0x60
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x165 build/default/production/asteroids_main.o
+ .debug_abbrev    0x000000         0x4c build/default/production/main.o
+ .debug_abbrev    0x00004c         0x14 build/default/production/mainAsm.o
 
-.debug_line       0x000000        0x17c
+.debug_line       0x000000         0x7e
  *(.debug_line)
- .debug_line      0x000000        0x17c build/default/production/asteroids_main.o
+ .debug_line      0x000000         0x36 build/default/production/main.o
+ .debug_line      0x000036         0x48 build/default/production/mainAsm.o
 
-.debug_frame      0x000000         0x4c
+.debug_frame      0x000000         0x30
  *(.debug_frame)
- .debug_frame     0x000000         0x4c build/default/production/asteroids_main.o
-
-.debug_str        0x000000         0x1f
- *(.debug_str)
- .debug_str       0x000000         0x1f build/default/production/asteroids_main.o
+ .debug_frame     0x000000         0x30 build/default/production/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -256,18 +257,20 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x26
+                  0x000000         0x1b
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x26 build/default/production/asteroids_main.o
+                  0x000000         0x1b build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x18
+.debug_aranges    0x000000         0x30
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/production/asteroids_main.o
+                  0x000000         0x18 build/default/production/main.o
+ .debug_aranges
+                  0x000018         0x18 build/default/production/mainAsm.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1122,42 +1125,43 @@ LOAD c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/production/Asteroids.production.elf elf32-pic30)
-LOAD /CW/_FGSè¤Ð
+LOAD /CW/_FGSÐƒ­
 LOAD default_isr
 
 .debug_pubtypes
-                  0x000018         0x7e
+                  0x000030         0x12
  .debug_pubtypes
-                  0x000018         0x7e build/default/production/asteroids_main.o
+                  0x000030         0x12 build/default/production/main.o
 
 __c30_signature
-                  0x000096         0x12
+                  0x000042         0x12
  __c30_signature
-                  0x000096          0x6 build/default/production/asteroids_main.o
+                  0x000042          0x6 build/default/production/main.o
  __c30_signature
-                  0x00009c          0x6 c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                  0x000048          0x6 c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
-                  0x0000a2          0x6 c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extended.o)
+                  0x00004e          0x6 c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extended.o)
 
 .config_IESO      0x02aff8          0x2
- .config_IESO     0x02aff8          0x2 build/default/production/asteroids_main.o
+ .config_IESO     0x02aff8          0x2 build/default/production/main.o
 
 .config_FCKSM     0x02aff6          0x2
- .config_FCKSM    0x02aff6          0x2 build/default/production/asteroids_main.o
+ .config_FCKSM    0x02aff6          0x2 build/default/production/main.o
 
 .config_FWDTEN    0x02aff4          0x2
  .config_FWDTEN
-                  0x02aff4          0x2 build/default/production/asteroids_main.o
+                  0x02aff4          0x2 build/default/production/main.o
 
 .config_WDTWIN    0x02aff2          0x2
  .config_WDTWIN
-                  0x02aff2          0x2 build/default/production/asteroids_main.o
+                  0x02aff2          0x2 build/default/production/main.o
 
 .config_JTAGEN    0x02aff0          0x2
  .config_JTAGEN
-                  0x02aff0          0x2 build/default/production/asteroids_main.o
+                  0x02aff0          0x2 build/default/production/main.o
 
-.text             0x000300        0x1fe
- .text            0x000300        0x1fe build/default/production/asteroids_main.o
-                  0x000300                  _main
-                  0x0004c4                  _config
+.text             0x000300         0x34
+ .text            0x000300         0x2a build/default/production/mainAsm.o
+                  0x000300                  _asmMain
+ .text            0x00032a          0xa build/default/production/main.o
+                  0x00032a                  _main

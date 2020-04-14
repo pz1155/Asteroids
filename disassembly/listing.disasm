@@ -1,0 +1,467 @@
+Disassembly Listing for Asteroids
+Generated From:
+C:/Users/ASUS/Documents/GitHub/Asteroids/dist/default/production/Asteroids.production.elf
+Apr 10, 2020 3:27:52 PM
+
+---  C:/Users/ASUS/Documents/GitHub/Asteroids/asteroids_main.c  -----------------------------------------
+1:                 /*
+2:                  * File:   asteroids_main.c
+3:                  * Author: Paul Zwart
+4:                  *
+5:                  * Created on March 15, 2020, 6:03 PM
+6:                  */
+7:                 
+8:                 
+9:                 
+10:                // PIC24EP256GP202 Configuration Bit Settings
+11:                
+12:                // 'C' source line config statements
+13:                
+14:                // FICD
+15:                #pragma config ICS = PGD1               // ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1)
+16:                #pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
+17:                
+18:                // FPOR
+19:                #pragma config ALTI2C1 = OFF            // Alternate I2C1 pins (I2C1 mapped to SDA1/SCL1 pins)
+20:                #pragma config ALTI2C2 = OFF            // Alternate I2C2 pins (I2C2 mapped to SDA2/SCL2 pins)
+21:                #pragma config WDTWIN = WIN25           // Watchdog Window Select bits (WDT Window is 25% of WDT period)
+22:                
+23:                // FWDT
+24:                #pragma config WDTPOST = PS32768        // Watchdog Timer Postscaler bits (1:32,768)
+25:                #pragma config WDTPRE = PR128           // Watchdog Timer Prescaler bit (1:128)
+26:                #pragma config PLLKEN = ON              // PLL Lock Enable bit (Clock switch to PLL source will wait until the PLL lock signal is valid.)
+27:                #pragma config WINDIS = OFF             // Watchdog Timer Window Enable bit (Watchdog Timer in Non-Window mode)
+28:                #pragma config FWDTEN = ON              // Watchdog Timer Enable bit (Watchdog timer always enabled)
+29:                
+30:                // FOSC
+31:                #pragma config POSCMD = EC              // Primary Oscillator Mode Select bits (EC (External Clock) Mode)
+32:                #pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
+33:                #pragma config IOL1WAY = ON             // Peripheral pin select configuration (Allow only one reconfiguration)
+34:                #pragma config FCKSM = CSDCMD           // Clock Switching Mode bits (Both Clock switching and Fail-safe Clock Monitor are disabled)
+35:                
+36:                // FOSCSEL
+37:                #pragma config FNOSC = PRIPLL           // Oscillator Source Selection (Primary Oscillator with PLL module (XT + PLL, HS + PLL, EC + PLL))
+38:                #pragma config IESO = ON                // Two-speed Oscillator Start-up Enable bit (Start up device with FRC, then switch to user-selected oscillator source)
+39:                
+40:                // FGS
+41:                #pragma config GWRP = OFF               // General Segment Write-Protect bit (General Segment may be written)
+42:                #pragma config GCP = OFF                // General Segment Code-Protect bit (General Segment Code protect is Disabled)
+43:                
+44:                // #pragma config statements should precede project file includes.
+45:                // Use project enums instead of #define for ON and OFF.
+46:                
+47:                #include <xc.h>
+48:                
+49:                int main(void) {
+000300  FA0002     LNK #0x2
+50:                    int i;
+51:                    
+52:                    
+53:                    config();
+000302  0700E0     RCALL config
+54:                    
+55:                    /*
+56:                    0x0000 = 0V 
+57:                    0x1000 = 0.714V
+58:                    0x2000 = 0.054V
+59:                    0x3000 = -0.286V
+60:                     */
+61:                    
+62:                    while(1) {
+63:                        for (i = 0; i < 6; i++) {
+000304  EB0000     CLR W0
+000306  780F00     MOV W0, [W14]
+000308  370011     BRA .L2
+00032A  E80F1E     INC [W14], [W14]
+00032C  78001E     MOV [W14], W0
+00032E  500FE5     SUB W0, #0x5, [W15]
+000330  34FFEC     BRA LE, .L6
+64:                            TMR1 = 0;
+00030A  EF2100     CLR TMR1
+65:                            PORTB = 0x3000;     
+00030C  230000     MOV #0x3000, W0
+00030E  887090     MOV W0, PORTB
+66:                            while (TMR1 < 47) {}
+000310  000000     NOP
+000312  800801     MOV TMR1, W1
+000314  2002E0     MOV #0x2E, W0
+000316  508F80     SUB W1, W0, [W15]
+000318  36FFFC     BRA LEU, .L3
+67:                            TMR1 = 0;
+00031A  EF2100     CLR TMR1
+68:                            PORTB = 0x0000;     
+00031C  EF2E12     CLR PORTB
+69:                            while (TMR1 < 974) {
+00031E  370001     BRA .L4
+000322  800801     MOV TMR1, W1
+000324  203CD0     MOV #0x3CD, W0
+000326  508F80     SUB W1, W0, [W15]
+000328  36FFFB     BRA LEU, .L5
+70:                            ClrWdt();
+000320  FE6000     CLRWDT
+71:                            }
+72:                        }
+73:                        
+74:                        for (i = 0; i < 6; i++) {
+000332  EB0000     CLR W0
+000334  780F00     MOV W0, [W14]
+000336  370011     BRA .L7
+000358  E80F1E     INC [W14], [W14]
+00035A  78001E     MOV [W14], W0
+00035C  500FE5     SUB W0, #0x5, [W15]
+00035E  34FFEC     BRA LE, .L11
+75:                            TMR1 = 0;
+000338  EF2100     CLR TMR1
+76:                            PORTB = 0x3000;     
+00033A  230000     MOV #0x3000, W0
+00033C  887090     MOV W0, PORTB
+77:                            while (TMR1 < 974) {}
+00033E  000000     NOP
+000340  800801     MOV TMR1, W1
+000342  203CD0     MOV #0x3CD, W0
+000344  508F80     SUB W1, W0, [W15]
+000346  36FFFC     BRA LEU, .L8
+78:                            TMR1 = 0;
+000348  EF2100     CLR TMR1
+79:                            PORTB = 0x0000;     
+00034A  EF2E12     CLR PORTB
+80:                            while (TMR1 < 47) {
+00034C  370001     BRA .L9
+000350  800801     MOV TMR1, W1
+000352  2002E0     MOV #0x2E, W0
+000354  508F80     SUB W1, W0, [W15]
+000356  36FFFB     BRA LEU, .L10
+81:                            ClrWdt();
+00034E  FE6000     CLRWDT
+82:                            }
+83:                        }
+84:                        
+85:                        for (i = 0; i < 6; i++) {
+000360  EB0000     CLR W0
+000362  780F00     MOV W0, [W14]
+000364  370011     BRA .L12
+000386  E80F1E     INC [W14], [W14]
+000388  78001E     MOV [W14], W0
+00038A  500FE5     SUB W0, #0x5, [W15]
+00038C  34FFEC     BRA LE, .L16
+86:                            TMR1 = 0;
+000366  EF2100     CLR TMR1
+87:                            PORTB = 0x3000;     
+000368  230000     MOV #0x3000, W0
+00036A  887090     MOV W0, PORTB
+88:                            while (TMR1 < 47) {}
+00036C  000000     NOP
+00036E  800801     MOV TMR1, W1
+000370  2002E0     MOV #0x2E, W0
+000372  508F80     SUB W1, W0, [W15]
+000374  36FFFC     BRA LEU, .L13
+89:                            TMR1 = 0;
+000376  EF2100     CLR TMR1
+90:                            PORTB = 0x0000;     
+000378  EF2E12     CLR PORTB
+91:                            while (TMR1 < 974) {
+00037A  370001     BRA .L14
+00037E  800801     MOV TMR1, W1
+000380  203CD0     MOV #0x3CD, W0
+000382  508F80     SUB W1, W0, [W15]
+000384  36FFFB     BRA LEU, .L15
+92:                            ClrWdt();
+00037C  FE6000     CLRWDT
+93:                            }
+94:                        }
+95:                        
+96:                        for (i = 0; i < 131; i++) {
+00038E  EB0000     CLR W0
+000390  780F00     MOV W0, [W14]
+000392  370063     BRA .L17
+000458  E80F1E     INC [W14], [W14]
+00045A  200820     MOV #0x82, W0
+00045C  78009E     MOV [W14], W1
+00045E  508F80     SUB W1, W0, [W15]
+000460  34FF99     BRA LE, .L34
+97:                            ClrWdt();
+000394  FE6000     CLRWDT
+98:                
+99:                            TMR1 = 0;
+000396  EF2100     CLR TMR1
+100:                           PORTB = 0x0000;     
+000398  EF2E12     CLR PORTB
+101:                           while (TMR1 < 47) {}
+00039A  000000     NOP
+00039C  800801     MOV TMR1, W1
+00039E  2002E0     MOV #0x2E, W0
+0003A0  508F80     SUB W1, W0, [W15]
+0003A2  36FFFC     BRA LEU, .L18
+102:                           TMR1 = 0;
+0003A4  EF2100     CLR TMR1
+103:                           PORTB = 0x3000;
+0003A6  230000     MOV #0x3000, W0
+0003A8  887090     MOV W0, PORTB
+104:                           while (TMR1 < 148) {}
+0003AA  000000     NOP
+0003AC  800801     MOV TMR1, W1
+0003AE  200930     MOV #0x93, W0
+0003B0  508F80     SUB W1, W0, [W15]
+0003B2  36FFFC     BRA LEU, .L19
+105:                           TMR1 = 0;
+0003B4  EF2100     CLR TMR1
+106:                           PORTB = 0x0000;
+0003B6  EF2E12     CLR PORTB
+107:                           while (TMR1 < 148) {}
+0003B8  000000     NOP
+0003BA  800801     MOV TMR1, W1
+0003BC  200930     MOV #0x93, W0
+0003BE  508F80     SUB W1, W0, [W15]
+0003C0  36FFFC     BRA LEU, .L20
+108:                           TMR1 = 0;
+0003C2  EF2100     CLR TMR1
+109:                           PORTB = 0x2000;
+0003C4  220000     MOV #0x2000, W0
+0003C6  887090     MOV W0, PORTB
+110:                           while (TMR1 < 47) {}
+0003C8  000000     NOP
+0003CA  800801     MOV TMR1, W1
+0003CC  2002E0     MOV #0x2E, W0
+0003CE  508F80     SUB W1, W0, [W15]
+0003D0  36FFFC     BRA LEU, .L21
+111:                           TMR1 = 0;
+0003D2  EF2100     CLR TMR1
+112:                           PORTB = 0x2000;
+0003D4  220000     MOV #0x2000, W0
+0003D6  887090     MOV W0, PORTB
+113:                           while (TMR1 < 817) {
+0003D8  370001     BRA .L22
+0003DC  800801     MOV TMR1, W1
+0003DE  203300     MOV #0x330, W0
+0003E0  508F80     SUB W1, W0, [W15]
+0003E2  36FFFB     BRA LEU, .L23
+114:                           ClrWdt();
+0003DA  FE6000     CLRWDT
+115:                           }
+116:                           TMR1 = 0;
+0003E4  EF2100     CLR TMR1
+117:                           PORTB = 0x1000;
+0003E6  210000     MOV #0x1000, W0
+0003E8  887090     MOV W0, PORTB
+118:                           while (TMR1 < 817) {
+0003EA  370001     BRA .L24
+0003EE  800801     MOV TMR1, W1
+0003F0  203300     MOV #0x330, W0
+0003F2  508F80     SUB W1, W0, [W15]
+0003F4  36FFFB     BRA LEU, .L25
+119:                           ClrWdt();
+0003EC  FE6000     CLRWDT
+120:                           }
+121:                           
+122:                           ClrWdt();
+0003F6  FE6000     CLRWDT
+123:               
+124:                           TMR1 = 0;
+0003F8  EF2100     CLR TMR1
+125:                           PORTB = 0x0000;     
+0003FA  EF2E12     CLR PORTB
+126:                           while (TMR1 < 47) {}
+0003FC  000000     NOP
+0003FE  800801     MOV TMR1, W1
+000400  2002E0     MOV #0x2E, W0
+000402  508F80     SUB W1, W0, [W15]
+000404  36FFFC     BRA LEU, .L26
+127:                           TMR1 = 0;
+000406  EF2100     CLR TMR1
+128:                           PORTB = 0x3000;
+000408  230000     MOV #0x3000, W0
+00040A  887090     MOV W0, PORTB
+129:                           while (TMR1 < 148) {}
+00040C  000000     NOP
+00040E  800801     MOV TMR1, W1
+000410  200930     MOV #0x93, W0
+000412  508F80     SUB W1, W0, [W15]
+000414  36FFFC     BRA LEU, .L27
+130:                           TMR1 = 0;
+000416  EF2100     CLR TMR1
+131:                           PORTB = 0x0000;
+000418  EF2E12     CLR PORTB
+132:                           while (TMR1 < 148) {}
+00041A  000000     NOP
+00041C  800801     MOV TMR1, W1
+00041E  200930     MOV #0x93, W0
+000420  508F80     SUB W1, W0, [W15]
+000422  36FFFC     BRA LEU, .L28
+133:                           TMR1 = 0;
+000424  EF2100     CLR TMR1
+134:                           PORTB = 0x2000;
+000426  220000     MOV #0x2000, W0
+000428  887090     MOV W0, PORTB
+135:                           while (TMR1 < 47) {}
+00042A  000000     NOP
+00042C  800801     MOV TMR1, W1
+00042E  2002E0     MOV #0x2E, W0
+000430  508F80     SUB W1, W0, [W15]
+000432  36FFFC     BRA LEU, .L29
+136:                           TMR1 = 0;
+000434  EF2100     CLR TMR1
+137:                           PORTB = 0x1000;
+000436  210000     MOV #0x1000, W0
+000438  887090     MOV W0, PORTB
+138:                           while (TMR1 < 817) {
+00043A  370001     BRA .L30
+00043E  800801     MOV TMR1, W1
+000440  203300     MOV #0x330, W0
+000442  508F80     SUB W1, W0, [W15]
+000444  36FFFB     BRA LEU, .L31
+139:                           ClrWdt();
+00043C  FE6000     CLRWDT
+140:                           }
+141:                           TMR1 = 0;
+000446  EF2100     CLR TMR1
+142:                           PORTB = 0x2000;
+000448  220000     MOV #0x2000, W0
+00044A  887090     MOV W0, PORTB
+143:                           while (TMR1 < 817) {
+00044C  370001     BRA .L32
+000450  800801     MOV TMR1, W1
+000452  203300     MOV #0x330, W0
+000454  508F80     SUB W1, W0, [W15]
+000456  36FFFB     BRA LEU, .L33
+144:                           ClrWdt();
+00044E  FE6000     CLRWDT
+145:                           }
+146:                       }
+147:                       
+148:                       TMR1 = 0;
+000462  EF2100     CLR TMR1
+149:                       PORTB = 0x0000;     
+000464  EF2E12     CLR PORTB
+150:                       while (TMR1 < 47) {}
+000466  000000     NOP
+000468  800801     MOV TMR1, W1
+00046A  2002E0     MOV #0x2E, W0
+00046C  508F80     SUB W1, W0, [W15]
+00046E  36FFFC     BRA LEU, .L35
+151:                       TMR1 = 0;
+000470  EF2100     CLR TMR1
+152:                       PORTB = 0x3000;
+000472  230000     MOV #0x3000, W0
+000474  887090     MOV W0, PORTB
+153:                       while (TMR1 < 148) {}
+000476  000000     NOP
+000478  800801     MOV TMR1, W1
+00047A  200930     MOV #0x93, W0
+00047C  508F80     SUB W1, W0, [W15]
+00047E  36FFFC     BRA LEU, .L36
+154:                       TMR1 = 0;
+000480  EF2100     CLR TMR1
+155:                       PORTB = 0x0000;
+000482  EF2E12     CLR PORTB
+156:                       while (TMR1 < 148) {}
+000484  000000     NOP
+000486  800801     MOV TMR1, W1
+000488  200930     MOV #0x93, W0
+00048A  508F80     SUB W1, W0, [W15]
+00048C  36FFFC     BRA LEU, .L37
+157:                       TMR1 = 0;
+00048E  EF2100     CLR TMR1
+158:                       PORTB = 0x2000;
+000490  220000     MOV #0x2000, W0
+000492  887090     MOV W0, PORTB
+159:                       while (TMR1 < 47) {}
+000494  000000     NOP
+000496  800801     MOV TMR1, W1
+000498  2002E0     MOV #0x2E, W0
+00049A  508F80     SUB W1, W0, [W15]
+00049C  36FFFC     BRA LEU, .L38
+160:                       TMR1 = 0;
+00049E  EF2100     CLR TMR1
+161:                       PORTB = 0x2000;
+0004A0  220000     MOV #0x2000, W0
+0004A2  887090     MOV W0, PORTB
+162:                       while (TMR1 < 817) {
+0004A4  370001     BRA .L39
+0004A8  800801     MOV TMR1, W1
+0004AA  203300     MOV #0x330, W0
+0004AC  508F80     SUB W1, W0, [W15]
+0004AE  36FFFB     BRA LEU, .L40
+163:                       ClrWdt();
+0004A6  FE6000     CLRWDT
+164:                       }
+165:                       TMR1 = 0;
+0004B0  EF2100     CLR TMR1
+166:                       PORTB = 0x1000;
+0004B2  210000     MOV #0x1000, W0
+0004B4  887090     MOV W0, PORTB
+167:                       while (TMR1 < 817) {
+0004B6  370001     BRA .L41
+0004BA  800801     MOV TMR1, W1
+0004BC  203300     MOV #0x330, W0
+0004BE  508F80     SUB W1, W0, [W15]
+0004C0  36FFFB     BRA LEU, .L42
+168:                       ClrWdt();
+0004B8  FE6000     CLRWDT
+169:                       }
+170:                       /*asm {
+171:                           CLR W1
+172:                           DELAY:
+173:                           ADD 1, W1
+174:                           BRGT 
+175:                               
+176:                       }*/
+177:                   }
+0004C2  37FF20     BRA .L43
+178:                   
+179:                   return 0;
+180:               }
+181:               
+182:               
+183:               int config(void) {
+0004C4  FA0000     LNK #0x0
+184:                   
+185:                   ANSELB = 0; // All port B pins are digital.
+0004C6  EF2E1E     CLR ANSELB
+186:                   
+187:                   TRISA = 0xFFFF; // Make PORTA all inputs
+0004C8  EB8000     SETM W0
+0004CA  887000     MOV W0, TRISA
+188:                   TRISB = 0xFFFF; // Make PORTA all inputs
+0004CC  EB8000     SETM W0
+0004CE  887080     MOV W0, TRISB
+189:                   
+190:                   TRISBbits.TRISB13 = 0; //Make RB11 and output
+0004D0  A9AE11     BCLR 0xE11, #5
+191:                   TRISBbits.TRISB12 = 0; //Make RB12 and output
+0004D2  A98E11     BCLR 0xE11, #4
+192:                   
+193:                   // Configure PLL prescaler, PLL postscaler, PLL divisor; FCY = 32MHz (31.25nsec/i)
+194:                   PLLFBD = 46;            // M=48
+0004D4  2002E0     MOV #0x2E, W0
+0004D6  883A30     MOV W0, PLLFBD
+195:                   CLKDIVbits.PLLPOST = 0; // N2=2
+0004D8  803A21     MOV CLKDIV, W1
+0004DA  2FF3F0     MOV #0xFF3F, W0
+0004DC  608000     AND W1, W0, W0
+0004DE  883A20     MOV W0, CLKDIV
+196:                   CLKDIVbits.PLLPRE = 1;  // N1=3    
+0004E0  803A21     MOV CLKDIV, W1
+0004E2  2FFE00     MOV #0xFFE0, W0
+0004E4  608000     AND W1, W0, W0
+0004E6  A00000     BSET W0, #0
+0004E8  883A20     MOV W0, CLKDIV
+197:                   
+198:                   // Timer control
+199:                   T1CONbits.TCS = 0; // Set to timer mode
+0004EA  A92104     BCLR T1CON, #1
+200:                   T1CONbits.TGATE = 0; // Turn off Gated timer mode
+0004EC  A9C104     BCLR T1CON, #6
+201:                   T1CONbits.TCKPS = 0b00; // Prescalar to 1:1 
+0004EE  800821     MOV T1CON, W1
+0004F0  2FFCF0     MOV #0xFFCF, W0
+0004F2  608000     AND W1, W0, W0
+0004F4  880820     MOV W0, T1CON
+202:                   T1CONbits.TON = 1; // Enable the timer (timer 1 is used for the water sensor and checking for network)
+0004F6  A8E105     BSET 0x105, #7
+203:                   
+204:                   
+205:                   return 0;
+0004F8  EB0000     CLR W0
+206:               }
+0004FA  FA8000     ULNK
+0004FC  060000     RETURN
