@@ -249,7 +249,7 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
-      <item path="asteroids_main.c" ex="true" overriding="false">
+      <item path="asteroids_main.c" ex="false" overriding="false">
         <C30>
         </C30>
         <C30-AR>
@@ -260,6 +260,10 @@
         </C30-LD>
         <C30Global>
         </C30Global>
+      </item>
+      <item path="main.c" ex="true" overriding="false">
+      </item>
+      <item path="mainAsm.s" ex="true" overriding="false">
       </item>
     </conf>
   </confs>

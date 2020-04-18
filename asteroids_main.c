@@ -63,10 +63,10 @@ int main(void) {
         for (i = 0; i < 6; i++) {
             TMR1 = 0;
             PORTB = 0x3000;     
-            while (TMR1 < 47) {}
+            while (TMR1 < 62) {}
             TMR1 = 0;
             PORTB = 0x0000;     
-            while (TMR1 < 974) {
+            while (TMR1 < 913) {
             ClrWdt();
             }
         }
@@ -74,10 +74,10 @@ int main(void) {
         for (i = 0; i < 6; i++) {
             TMR1 = 0;
             PORTB = 0x3000;     
-            while (TMR1 < 974) {}
+            while (TMR1 < 913) {}
             TMR1 = 0;
             PORTB = 0x0000;     
-            while (TMR1 < 47) {
+            while (TMR1 < 62) {
             ClrWdt();
             }
         }
@@ -85,86 +85,97 @@ int main(void) {
         for (i = 0; i < 6; i++) {
             TMR1 = 0;
             PORTB = 0x3000;     
-            while (TMR1 < 47) {}
+            while (TMR1 < 62) {}
             TMR1 = 0;
             PORTB = 0x0000;     
-            while (TMR1 < 974) {
+            while (TMR1 < 913) {
             ClrWdt();
             }
         }
         
-        for (i = 0; i < 131; i++) {
+        for (i = 0; i < 10; i++) {
+            TMR1 = 0;
+            PORTB = 0x3000;     
+            while (TMR1 < 288) {}
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 1662) {
+            ClrWdt();
+            }
+        }
+        
+        for (i = 0; i < 124; i++) {
             ClrWdt();
 
             TMR1 = 0;
             PORTB = 0x0000;     
-            while (TMR1 < 47) {}
+            while (TMR1 < 62) {}
             TMR1 = 0;
             PORTB = 0x3000;
-            while (TMR1 < 148) {}
+            while (TMR1 < 144) {}
             TMR1 = 0;
             PORTB = 0x0000;
-            while (TMR1 < 148) {}
+            while (TMR1 < 144) {}
+            //TMR1 = 0;
+            //PORTB = 0x2000;
+            //while (TMR1 < 47) {}
             TMR1 = 0;
             PORTB = 0x2000;
-            while (TMR1 < 47) {}
-            TMR1 = 0;
-            PORTB = 0x2000;
-            while (TMR1 < 817) {
+            while (TMR1 < 800) {
             ClrWdt();
             }
             TMR1 = 0;
             PORTB = 0x1000;
-            while (TMR1 < 817) {
+            while (TMR1 < 800) {
             ClrWdt();
             }
             
-            ClrWdt();
+           ClrWdt();
 
             TMR1 = 0;
             PORTB = 0x0000;     
-            while (TMR1 < 47) {}
+            while (TMR1 < 62) {}
             TMR1 = 0;
             PORTB = 0x3000;
-            while (TMR1 < 148) {}
+            while (TMR1 < 144) {}
             TMR1 = 0;
             PORTB = 0x0000;
-            while (TMR1 < 148) {}
-            TMR1 = 0;
-            PORTB = 0x2000;
-            while (TMR1 < 47) {}
+            while (TMR1 < 144) {}
+            //TMR1 = 0;
+            //PORTB = 0x2000;
+            //while (TMR1 < 47) {}
             TMR1 = 0;
             PORTB = 0x1000;
-            while (TMR1 < 817) {
+            while (TMR1 < 800) {
             ClrWdt();
             }
             TMR1 = 0;
             PORTB = 0x2000;
-            while (TMR1 < 817) {
+            while (TMR1 < 800) {
             ClrWdt();
             }
         }
         
         TMR1 = 0;
         PORTB = 0x0000;     
-        while (TMR1 < 47) {}
+        while (TMR1 < 62) {}
         TMR1 = 0;
         PORTB = 0x3000;
-        while (TMR1 < 148) {}
+        while (TMR1 < 144) {}
         TMR1 = 0;
         PORTB = 0x0000;
-        while (TMR1 < 148) {}
+        while (TMR1 < 144) {}
+        //TMR1 = 0;
+        //PORTB = 0x2000;
+        //while (TMR1 < 47) {}
         TMR1 = 0;
         PORTB = 0x2000;
-        while (TMR1 < 47) {}
-        TMR1 = 0;
-        PORTB = 0x2000;
-        while (TMR1 < 817) {
+        while (TMR1 < 800) {
         ClrWdt();
         }
         TMR1 = 0;
         PORTB = 0x1000;
-        while (TMR1 < 817) {
+        while (TMR1 < 800) {
         ClrWdt();
         }
         /*asm {
@@ -191,7 +202,7 @@ int config(void) {
     TRISBbits.TRISB12 = 0; //Make RB12 and output
     
     // Configure PLL prescaler, PLL postscaler, PLL divisor; FCY = 32MHz (31.25nsec/i)
-    PLLFBD = 46;            // M=48
+    PLLFBD = 44;            // M=46
     CLKDIVbits.PLLPOST = 0; // N2=2
     CLKDIVbits.PLLPRE = 1;  // N1=3    
     

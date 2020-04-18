@@ -4,12 +4,17 @@
  *
  * Created on April 13, 2020, 8:53 PM
  */
-    
-    
+
+  
 .global _asmMain
     
 _asmMain:
-    RCALL config
+    RCALL _config
+    
+mainLoop:   
+    CLRWDT
+    BRA mainLoop
+    
 
 
 _config:
@@ -41,7 +46,33 @@ _config:
     BCLR T1CON, #4	;Clear T1CON bit #4, Prescalar to 1:1 
     BCLR T1CON, #5	;Clear T1CON bit #5, Prescalar to 1:1 
     BSET T1CON, #15	;Set T1CON bit #15, Set Enable the timer
-
+    
+    
+    ;Setup Interrupts
+    BSET INTCON1, #15	;Set the INTCON1 bit #15, disable nested interrupts
+    BCLR CORCON, #15	;Clear the CORCON bit #15, enable fixed 13 instruction cycle latency 
+    BSET IPC0, #12	;Set the priority of Timer 1 interrupt vector to max (7)
+    BSET IPC0, #13
+    BSET IPC0, #14
+    BCLR IFS0, #3	;Clear the flag for Timer 1 interrupt vector
+    BSET IEC0, #3	;Set the IEC0 bit #3, enabling Timer 1 interrupt vector
+    
+    MOV #0x0200, W0	;Copy value 0x0200 to register W0
+    MOV W0, 0x001A	;Copy register W0 to 0x001A
     RETURN
 
+    
+;Timer Interrupt Service Routine
+ .section *,address(0x0200),code
+ .global _timerInterrupt
+_timerInterrupt:
+    BCLR IFS0, #3	;Clear the flag for Timer 1 interrupt vector
+    
+    
+    
+    RETFIE		;Return from interrupt
 
+    
+.data
+nxtLvl: .byte 0x00
+ 
