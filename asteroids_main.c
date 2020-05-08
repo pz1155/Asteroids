@@ -66,7 +66,7 @@ int main(void) {
             while (TMR1 < 62) {}
             TMR1 = 0;
             PORTB = 0x0000;     
-            while (TMR1 < 914) {
+            while (TMR1 < 913) {
             ClrWdt();
             }
         }
@@ -74,7 +74,7 @@ int main(void) {
         for (i = 0; i < 6; i++) {
             TMR1 = 0;
             PORTB = 0x3000;     
-            while (TMR1 < 914) {}
+            while (TMR1 < 913) {}
             TMR1 = 0;
             PORTB = 0x0000;     
             while (TMR1 < 62) {
@@ -88,13 +88,33 @@ int main(void) {
             while (TMR1 < 62) {}
             TMR1 = 0;
             PORTB = 0x0000;     
-            while (TMR1 < 914) {
+            while (TMR1 < 913) {
             ClrWdt();
             }
         }
         
         
-        for (i = 0; i < 27; i++) {
+        for (i = 0; i < 11; i++) {
+            ClrWdt();
+
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 62) {}
+            TMR1 = 0;
+            PORTB = 0x3000;
+            while (TMR1 < 144) {}
+            TMR1 = 0;
+            PORTB = 0x0000;
+            while (TMR1 < 144) {}
+            TMR1 = 0;
+            PORTB = 0x0000;
+            while (TMR1 < 1600) {
+            ClrWdt();
+            }
+            ClrWdt();
+        }
+            
+        for (i = 0; i < 242; i++) {
             ClrWdt();
 
             TMR1 = 0;
@@ -108,26 +128,6 @@ int main(void) {
             while (TMR1 < 144) {}
             TMR1 = 0;
             PORTB = 0x2000;
-            while (TMR1 < 1600) {
-            ClrWdt();
-            }
-            ClrWdt();
-        }
-            
-        for (i = 0; i < 240; i++) {
-            ClrWdt();
-
-            TMR1 = 0;
-            PORTB = 0x0000;     
-            while (TMR1 < 62) {}
-            TMR1 = 0;
-            PORTB = 0x3000;
-            while (TMR1 < 144) {}
-            TMR1 = 0;
-            PORTB = 0x0000;
-            while (TMR1 < 144) {}
-            TMR1 = 0;
-            PORTB = 0x1000;
             while (TMR1 < 1600) {
             ClrWdt();
             }
@@ -145,11 +145,114 @@ int main(void) {
         PORTB = 0x0000;
         while (TMR1 < 144) {}
         TMR1 = 0;
-        PORTB = 0x1000;
-        while (TMR1 < 1600) {
+        PORTB = 0x2000;
+        while (TMR1 < 625) {
         ClrWdt();
         }
 
+    ///////////////////////////
+    
+    for (i = 0; i < 6; i++) {
+            TMR1 = 0;
+            PORTB = 0x3000;     
+            while (TMR1 < 62) {}
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 913) {
+            ClrWdt();
+            }
+        }
+        
+        for (i = 0; i < 6; i++) {
+            TMR1 = 0;
+            PORTB = 0x3000;     
+            while (TMR1 < 913) {}
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 62) {
+            ClrWdt();
+            }
+        }
+        
+        for (i = 0; i < 6; i++) {
+            TMR1 = 0;
+            PORTB = 0x3000;     
+            while (TMR1 < 62) {}
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 913) {
+            ClrWdt();
+            }
+        }
+        
+        TMR1 = 0;
+        PORTB = 0x0000;
+        while (TMR1 < 975) {
+        ClrWdt();
+        }
+        
+        for (i = 0; i < 10; i++) {
+            ClrWdt();
+
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 62) {}
+            TMR1 = 0;
+            PORTB = 0x3000;
+            while (TMR1 < 144) {}
+            TMR1 = 0;
+            PORTB = 0x0000;
+            while (TMR1 < 144) {}
+            TMR1 = 0;
+            PORTB = 0x0000;
+            while (TMR1 < 1600) {
+            ClrWdt();
+            }
+            ClrWdt();
+        }
+        
+        TMR1 = 0;
+        PORTB = 0x0000;     
+        while (TMR1 < 62) {}
+        TMR1 = 0;
+        PORTB = 0x3000;
+        while (TMR1 < 144) {}
+        TMR1 = 0;
+        PORTB = 0x0000;
+        while (TMR1 < 144) {}
+        TMR1 = 0;
+        PORTB = 0x0000;
+        while (TMR1 < 625) {
+        ClrWdt();
+        }
+
+        TMR1 = 0;
+        PORTB = 0x2000;
+        while (TMR1 < 975) {
+        ClrWdt();
+        }
+        
+        for (i = 0; i < 242; i++) {
+            ClrWdt();
+
+            TMR1 = 0;
+            PORTB = 0x0000;     
+            while (TMR1 < 62) {}
+            TMR1 = 0;
+            PORTB = 0x3000;
+            while (TMR1 < 144) {}
+            TMR1 = 0;
+            PORTB = 0x0000;
+            while (TMR1 < 144) {}
+            TMR1 = 0;
+            PORTB = 0x2000;
+            while (TMR1 < 1600) {
+            ClrWdt();
+            }
+            
+           ClrWdt();
+        }
+             
     }
     
     return 0;

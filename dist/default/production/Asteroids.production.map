@@ -75,9 +75,9 @@ xc16-ld 1.34 (A)
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x100           0x180  (384)
-.text                        0x300               0x1aa           0x27f  (639)
+.text                        0x300               0x330           0x4c8  (1224)
 
-                 Total "program" memory used (bytes):          0x3ff  (1023) <1%
+                 Total "program" memory used (bytes):          0x648  (1608) <1%
 
 
 "data" Memory  [Origin = 0x1000, Length = 0x8000]
@@ -106,7 +106,7 @@ External Symbols in Program Memory (by address):
                   0x000248                  __data_init
                   0x0002fa                  __DefaultInterrupt
                   0x000300                  _main
-                  0x000470                  _config
+                  0x0005f6                  _config
                   0x02affa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
@@ -117,7 +117,7 @@ External Symbols in Program Memory (by name):
                   0x000248                  __data_init_extended
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000470                  _config
+                  0x0005f6                  _config
                   0x000300                  _main
 
 Memory Configuration
@@ -210,7 +210,7 @@ __FOSCSEL
 
 __FGS             0x02affa          0x2
  *(__FGS.sec*)
- __FGS.sec        0x02affa          0x2 /CW/_FGSÐtÍ
+ __FGS.sec        0x02affa          0x2 /CW/_FGS˜Â
                   0x02affa                  __FGS.sec
 
 __FUID0
@@ -228,18 +228,18 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x6f9
+.debug_info       0x000000        0x6fa
  *(.debug_info)
- .debug_info      0x000000        0x6f9 build/default/production/asteroids_main.o
+ .debug_info      0x000000        0x6fa build/default/production/asteroids_main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x165
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x165 build/default/production/asteroids_main.o
 
-.debug_line       0x000000        0x168
+.debug_line       0x000000        0x1d6
  *(.debug_line)
- .debug_line      0x000000        0x168 build/default/production/asteroids_main.o
+ .debug_line      0x000000        0x1d6 build/default/production/asteroids_main.o
 
 .debug_frame      0x000000         0x4c
  *(.debug_frame)
@@ -1122,7 +1122,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files (x86)/microchip/xc16/v1.34/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/production/Asteroids.production.elf elf32-pic30)
-LOAD /CW/_FGSÐtÍ
+LOAD /CW/_FGS˜Â
 LOAD default_isr
 
 .debug_pubtypes
@@ -1157,7 +1157,7 @@ __c30_signature
  .config_JTAGEN
                   0x02aff0          0x2 build/default/production/asteroids_main.o
 
-.text             0x000300        0x1aa
- .text            0x000300        0x1aa build/default/production/asteroids_main.o
+.text             0x000300        0x330
+ .text            0x000300        0x330 build/default/production/asteroids_main.o
                   0x000300                  _main
-                  0x000470                  _config
+                  0x0005f6                  _config
