@@ -1,0 +1,55 @@
+0x0000 = low
+0x1000 = highest
+0x2000 = high
+0x3000 = lowest
+
+FCY = 32MHz (31.25nsec/i)
+
+1 pixel = 2 instr. cycle
+
+62 instr. cycles/front porch
+144 instr. cycle/sync TIP
+144 instr. cycle/back porch
+1600 instr. cycle/video
+
+
+verticle sync - 62 low instr. cycle then 913 high instr. cycle x6
+		913 low instr. cycle x6 then 62 high instr. cycle
+		62 low instr. cycle then 913 high instr. cycle x6
+		11 full blank lines
+		
+Display -	242.5 lines
+
+
+verticle sync - 62 low instr. cycle then 913 high instr. cycle x6
+		913 low instr. cycle x6 then 62 high instr. cycle
+		62 low instr. cycle then 913 high instr. cycle x6
+		0.5 line (all zero level)
+		10 full blank lines
+		0.5 normal blank line
+		
+Display -	0.5 display line (only data part)
+		242 lines
+
+
+
+Each "pixel" will be composed of 2x2 pixels. 
+Active video will have two whole screens in memory. 
+242.5lines/frame * 2frames/screen = 485lines * 800pixels = 388000pixels
+388000pixels / 4 = 97000"pixels"/screen / 8bits/byte = 12125bytes
+
+One screen will be scanned onto the display while the other is being updated.
+
+Buffer user input for 1 screen. ie. Display screen 1, updating screen 2;
+get user input and use that input to update display screen 1 while 2 is displayed.
+
+For update, run through list of current objects, and put them in there appropiate spots.
+When changing a pixel to occupied (1) check first to make sure it isn't already a 1 (collision)
+Then run backwards through already displayed objects to see which collided. Update accordingly
+This shouldn't happen more than once per screen most likey.
+
+MAIN LOOP
+The main loop will just be updating the next screen and all displaying will be done in interrupts.
+These interrupts will change output pins to display, update the pointer to the next high bit, and
+then calculate next interrupt time. 
+When address of data gets to end of line or frame, a different interrupt loop is entered. 

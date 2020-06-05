@@ -56,9 +56,16 @@ _config:
     BSET IPC0, #14
     BCLR IFS0, #3	;Clear the flag for Timer 1 interrupt vector
     BSET IEC0, #3	;Set the IEC0 bit #3, enabling Timer 1 interrupt vector
+    BCLR INTCON1, #15	;Dissable nested interrupts
     
     MOV #0x0200, W0	;Copy value 0x0200 to register W0
     MOV W0, 0x001A	;Copy register W0 to 0x001A
+    
+    MOV #0x0000, W0
+    MOV W0, PR1		;CLEAR timer interrupt period register;
+    
+    MOV #0x0000, W0
+    MOV W0, TMR1	;CLEAR timer register - will match period register and cause interrupt
     RETURN
 
     
@@ -67,12 +74,21 @@ _config:
  .global _timerInterrupt
 _timerInterrupt:
     BCLR IFS0, #3	;Clear the flag for Timer 1 interrupt vector
+    MOV (nxtVLvl), W0
+    MOV W0, PORTB
     
     
     
     RETFIE		;Return from interrupt
 
+
+.bss
+screen1:    .space 12125 ;12125 bytes reserved for screen 1
+screen2:    .space 12125 ;12125 bytes reserved for screen 1
     
 .data
-nxtLvl: .byte 0x00
- 
+nxtVLvl:	.byte 0x0000
+tmrDelay:	.byte 0x0000
+hztlSyncFP:	.byte 46
+hztlSyncTip:	.byte 128
+hztlSyncBP:	.byte 128
