@@ -55,7 +55,7 @@ _config:
     BSET IPC0, #13
     BSET IPC0, #14
     BCLR IFS0, #3	;Clear the flag for Timer 1 interrupt vector
-    BSET IEC0, #3	;Set the IEC0 bit #3, enabling Timer 1 interrupt vector
+    ;BSET IEC0, #3	;Set the IEC0 bit #3, enabling Timer 1 interrupt vector
     BCLR INTCON1, #15	;Dissable nested interrupts
     
     MOV #0x0200, W0	;Copy value 0x0200 to register W0
@@ -72,10 +72,10 @@ _config:
 ;Timer Interrupt Service Routine
  .section *,address(0x0200),code
  .global _timerInterrupt
-_timerInterrupt:
+_timerInterrupt:	;16 instruction cycles delay from start up interrupt to display
     BCLR IFS0, #3	;Clear the flag for Timer 1 interrupt vector
     MOV (nxtVLvl), W0
-    MOV W0, PORTB
+    MOV W0, PORTB	;Put the next voltage level on the display
     
     
     
@@ -87,8 +87,8 @@ screen1:    .space 12125 ;12125 bytes reserved for screen 1
 screen2:    .space 12125 ;12125 bytes reserved for screen 1
     
 .data
-nxtVLvl:	.byte 0x0000
-tmrDelay:	.byte 0x0000
-hztlSyncFP:	.byte 46
-hztlSyncTip:	.byte 128
-hztlSyncBP:	.byte 128
+nxtVLvl:	.byte 0x0000	;Next voltage level to be outputted
+tmrDelay:	.byte 0x0000	;delay until next inerrupt should be initiated
+hztlSyncFP:	.byte 46	;62cycles for FP - 16 startup
+hztlSyncTip:	.byte 128	;144cycles for synctip - 16
+hztlSyncBP:	.byte 128	;144cycles for BP - 16
